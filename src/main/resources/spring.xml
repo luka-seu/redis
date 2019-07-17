@@ -4,18 +4,12 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:component-scan base-package="com.plasticlove"></context:component-scan>
-    <context:property-placeholder location="classpath:redis.properties"/>
-    <!--jedis配置-->
-    <bean id ="jedis" class="redis.clients.jedis.Jedis">
-        <constructor-arg name = "host" value="${redis.host}"></constructor-arg>
-        <constructor-arg name = "port" value="${redis.port}"></constructor-arg>
+    <context:property-placeholder location="classpath:app.properties"/>
+    <bean class="redis.clients.jedis.JedisPool" id="jedisPool">
+        <constructor-arg ref="jedisPoolConfig"></constructor-arg>
+        <constructor-arg value="${redis.host}" type="java.lang.String" ></constructor-arg>
+        <constructor-arg value="${redis.port}" type="int"></constructor-arg>
     </bean>
 
-<!--    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">-->
-<!--        <constructor-arg index="0" ref="jedisPoolConfig"/>-->
-<!--        <constructor-arg index="1" value="${redis_host}"/>-->
-<!--        <constructor-arg index="2" value="${redis_port}" type="int"/>-->
-<!--    </bean>-->
-<!--    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
-<!--    </bean>-->
+    <bean class="redis.clients.jedis.JedisPoolConfig" id="jedisPoolConfig"></bean>
 </beans>

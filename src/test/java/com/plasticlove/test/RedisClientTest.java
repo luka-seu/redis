@@ -1,4 +1,4 @@
-package com.plasticlove.redis;
+package com.plasticlove.test;
 
 import com.plasticlove.redis.client.RedisClient;
 import org.junit.Test;
@@ -20,5 +20,15 @@ public class RedisClientTest {
     @Test
     public void testSet(){
         redisClient.set("maoyan","hello");
+    }
+
+
+    @Test
+    public void testSetNx(){
+        System.out.println(redisClient.setNx("nx","1111",4000L));
+    }
+    @Test
+    public void testGet(){
+        System.out.println((String) redisClient.get("maoyan"));
     }
 }
